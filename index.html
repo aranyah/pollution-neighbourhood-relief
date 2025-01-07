@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./script.js" defer></script>
+    <title>DOM Review</title>
+  </head>
+  <body>
+    <h1 class="title">My Notes App</h1>
+
+    <form class="notes-form">
+      <fieldset class="notes-form__fieldset">
+        <legend class="notes-form__legend">Important things to remember</legend>
+
+        <label for="reminder" class="notes-form__label">Note:</label>
+        <textarea 
+          class="notes-form__textarea" 
+          id="reminder" name="reminder" 
+          placeholder="Write your note here..." 
+          required
+        ></textarea>
+
+        <label for="date" class="notes-form__label">Date:</label>
+        <input 
+          class="notes-form__input" 
+          type="date"
+          name="date"
+          id="date" 
+          required
+        />
+
+        <button class="notes-form__button">Submit</button>
+      </fieldset>
+    </form>
+
+    <h2 class="reminders__title">Reminders 📝:</h2>
+    <div class="reminders__list">
+      <!-- Reminders will go here -->
+      </article> 
+    </div>
+  </body>
+</html>
