@@ -5,40 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <script src="./script.js" defer></script>
-    <title>DOM Review</title>
+    <title>Supplies Bulletin Board</title>
   </head>
   <body>
-    <h1 class="title">My Notes App</h1>
+    <h1 class="title">Supplies Bulletin Board</h1>
 
-    <form class="notes-form">
-      <fieldset class="notes-form__fieldset">
-        <legend class="notes-form__legend">Important things to remember</legend>
+    <!-- Form for inputting disaster relief donation info -->
+    <form class="relief-form">
+      <fieldset class="relief-form__fieldset">
+        <legend class="relief-form__legend">What supplies can you donate?</legend>
 
-        <label for="reminder" class="notes-form__label">Note:</label>
-        <textarea 
-          class="notes-form__textarea" 
-          id="reminder" name="reminder" 
-          placeholder="Write your note here..." 
-          required
-        ></textarea>
-
-        <label for="date" class="notes-form__label">Date:</label>
+        <!-- Name Input -->
+        <label for="name" class="relief-form__label">Name:</label>
         <input 
-          class="notes-form__input" 
-          type="date"
-          name="date"
-          id="date" 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="Full Name" 
           required
         />
 
-        <button class="notes-form__button">Submit</button>
+        <!-- Phone Number Input -->
+        <label for="phone" class="relief-form__label">Phone Number:</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          placeholder="Phone Number" 
+          required
+        />
+
+        <!-- Meeting Location for Drop-off -->
+        <label for="location" class="relief-form__label">Meeting Location for Drop-off:</label>
+        <input 
+          type="text" 
+          id="location" 
+          name="location" 
+          placeholder="Indicate here if you can drop off at location specified" 
+          required
+        />
+
+        <!-- Can Drop-off Checkbox -->
+        <label for="canDropOff" class="relief-form__label">Can Drop-off Resources:</label>
+        <input 
+          type="checkbox" 
+          id="canDropOff" 
+          name="canDropOff"
+        />
+        <label for="canDropOff">Yes, I can drop off resources at the location</label>
+
+        <button type="submit" class="relief-form__button">Submit</button>
       </fieldset>
     </form>
 
-    <h2 class="reminders__title">Reminders 📝:</h2>
-    <div class="reminders__list">
-      <!-- Reminders will go here -->
-      </article> 
+    <h2 class="relief__title">Disaster Relief Requests 📦:</h2>
+    <div class="relief__requests-list">
+      <!-- Published cards for disaster relief requests will go here -->
     </div>
   </body>
 </html>

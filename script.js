@@ -1,100 +1,102 @@
+//
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 1: Create data that we can work with locally
-const dailyReminders = [
-  { reminder: "Get fresh air", date: "2024-10-11" },
-  { reminder: "Drink water", date: "2024-10-11" },
-  { reminder: "Say something nice about myself", date: "2024-10-11" },
+
+// Sample data for testing before dynamic input
+const disasterReliefRequests = [
+  { name: "John Doe", phone: "555-1234", location: "Community Center", canDropOff: "Yes" },
+  { name: "Jane Smith", phone: "555-5678", location: "Park", canDropOff: "No" },
+  { name: "Sarah Lee", phone: "555-9876", location: "Town Hall", canDropOff: "Yes" },
 ];
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// STEP 2: Create a function that will create our HTML
+// STEP 2: Create a function that will create our HTML cards
 
-// The createNoteCard function will create the following HTML:
-/* 
-   <article class="reminders__note-card">
-        <p class="reminders__reminder">Reminder</p>
-        <span class="reminders__date">Date</span>
-    </article>; 
-*/
-
-function createNoteCard(note) {
-  // our note parameter represents an object:
-  // note =  { reminder: "Get fresh air", date: "2024-10-11" }
+function createReliefCard(request) {
+  // our request parameter represents an object:
+  // request = { name: "John Doe", phone: "555-1234", location: "Community Center", canDropOff: "Yes" }
 
   const cardElement = document.createElement("article"); //Creating the article element
-  cardElement.classList.add("reminders__note-card"); //Create a class for cardElement
+  cardElement.classList.add("relief__request-card"); //Create a class for cardElement
 
-  const pTag = document.createElement("p"); //Creating the p element
-  pTag.classList.add("reminders__reminder"); //Create a class for pTag
-  pTag.innerText = note.reminder; //Create inner text for pTag
+  // Name Element
+  const nameTag = document.createElement("p");
+  nameTag.classList.add("relief__name");
+  nameTag.innerText = `Name: ${request.name}`;
 
-  const dateElement = document.createElement("span"); //Creating the span element
-  dateElement.classList.add("reminders__date"); //Create a class for span
-  dateElement.innerText = note.date; //Create inner text for span
+  // Phone Number Element
+  const phoneTag = document.createElement("p");
+  phoneTag.classList.add("relief__phone");
+  phoneTag.innerText = `Phone: ${request.phone}`;
 
-  //Appending our elements to the article tag so they are nested within it
-  cardElement.appendChild(pTag);
-  cardElement.appendChild(dateElement);
+  // Location Element
+  const locationTag = document.createElement("p");
+  locationTag.classList.add("relief__location");
+  locationTag.innerText = `Drop-off Location: ${request.location}`;
 
-  console.log(cardElement); //Console.log to test
-  return cardElement; //A return needed to create a new reminder card
+  // Can Drop-off Element
+  const canDropOffTag = document.createElement("p");
+  canDropOffTag.classList.add("relief__can-drop-off");
+  canDropOffTag.innerText = `Can drop off resources: ${request.canDropOff}`;
+
+  // Append all elements to the cardElement
+  cardElement.appendChild(nameTag);
+  cardElement.appendChild(phoneTag);
+  cardElement.appendChild(locationTag);
+  cardElement.appendChild(canDropOffTag);
+
+  console.log(cardElement); // Console.log to test
+  return cardElement; // Return the new card element
 }
-
-//Invoking to test
-createNoteCard({ reminder: "Learn JS", date: " 2024-12-19" });
-createNoteCard({ reminder: "Do laundry", date: " 2024-12-19" });
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 3: Create a function that will render our HTML on the browser
 
-const renderNoteCards = () => {
-  //Point to the form element on our HTML file
-  const myReminderEl = document.querySelector(".reminders__list");
+const renderReliefRequests = () => {
+  // Point to the form element on our HTML file
+  const myReliefRequestsEl = document.querySelector(".relief__requests-list");
 
-  //Clear all the HTML inside .reminders__list,
-  //so only most recent version of objects array is used to render to screen
-  myReminderEl.innerHTML = "";
+  // Clear all the HTML inside .relief__requests-list
+  myReliefRequestsEl.innerHTML = "";
 
-  for (let i = 0; i < dailyReminders.length; i++) {
-    //call createNoteCard with each index of the dailyReminders array by iterating through it
-    //dailyReminders[i] represents each object in your dailyReminders array
-    const card = createNoteCard(dailyReminders[i]);
+  for (let i = 0; i < disasterReliefRequests.length; i++) {
+    // Call createReliefCard with each index of the disasterReliefRequests array
+    const card = createReliefCard(disasterReliefRequests[i]);
 
-    //append each object from dailyReminders array to insertion point in HTML (i.e. .reminders_list div)
-    myReminderEl.appendChild(card);
+    // Append each object from disasterReliefRequests array to insertion point in HTML (i.e., .relief__requests-list div)
+    myReliefRequestsEl.appendChild(card);
   }
 };
 
-//invoke render function
-renderNoteCards();
+// Invoke render function to show sample data
+renderReliefRequests();
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 4: Get our Submit button to work
 
-const formEl = document.querySelector(".notes-form");
+const formEl = document.querySelector(".relief-form");
 
-// add 'submit' event handler to form element
+// Add 'submit' event handler to form element
 formEl.addEventListener("submit", submitHandler);
 
-//our handler function that we are passing in as an argument in our event listener
+// Our handler function that we are passing in as an argument in our event listener
 function submitHandler(event) {
-  event.preventDefault(); // prevent page from reloading
+  event.preventDefault(); // Prevent page from reloading
 
-  // store date from user input in an object (with same properties as original object)
-  let cardData = {
-    reminder: event.target.reminder.value,
-    date: event.target.date.value,
+  // Store user input in an object (with the same properties as original object)
+  let requestData = {
+    name: event.target.name.value,
+    phone: event.target.phone.value,
+    location: event.target.location.value,
+    canDropOff: event.target.canDropOff.checked ? "Yes" : "No", // Checkbox for drop-off
   };
 
-  // add object from user data to original hard coded reminders array
-  dailyReminders.push(cardData); //will add elements to the end of the array
+  // Add object from user data to the disasterReliefRequests array
+  disasterReliefRequests.push(requestData); // Will add elements to the end of the array
 
-  //This will add the newest elements to the front of the array
-  // dailyReminders.unshift(cardData);
+  // Did that work?
+  console.log(disasterReliefRequests);
 
-  // did that work
-  console.log(dailyReminders);
-
-  // call render appointmetns each time a form submission is made
-  renderNoteCards();
+  // Call render function each time a form submission is made
+  renderReliefRequests();
 }
