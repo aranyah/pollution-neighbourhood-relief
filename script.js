@@ -1,9 +1,9 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 1: Create data that we can work with locally
-const dailyReminders = [
-  { reminder: "Get fresh air", date: "2024-10-11" },
-  { reminder: "Drink water", date: "2024-10-11" },
-  { reminder: "Say something nice about myself", date: "2024-10-11" },
+const locations = [
+  { city: "Toronto", lat: 43.6534817, lon: -79.3839347 },
+  { city: "Calgary", lat: 50.6631, lon: -112.625 },
+  { city: "Vancouver", lat: 49.2608724, lon: -123.113952 },
 ];
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -17,84 +17,65 @@ const dailyReminders = [
     </article>; 
 */
 
-function createNoteCard(note) {
-  // our note parameter represents an object:
-  // note =  { reminder: "Get fresh air", date: "2024-10-11" }
+function createLocationCard(location, aqi) {
+  const cardElement = document.createElement("article");
+  cardElement.classList.add("locations__note-card");
 
-  const cardElement = document.createElement("article"); //Creating the article element
-  cardElement.classList.add("reminders__note-card"); //Create a class for cardElement
+  const cityNameTag = document.createElement("p");
+  cityNameTag.classList.add("locations__city");
+  cityNameTag.innerText = location.city;
 
-  const pTag = document.createElement("p"); //Creating the p element
-  pTag.classList.add("reminders__reminder"); //Create a class for pTag
-  pTag.innerText = note.reminder; //Create inner text for pTag
+  const aqiTag = document.createElement("span");
+  aqiTag.classList.add("locations__aqi");
+  aqiTag.innerText = `AQI: ${aqi}`;
 
-  const dateElement = document.createElement("span"); //Creating the span element
-  dateElement.classList.add("reminders__date"); //Create a class for span
-  dateElement.innerText = note.date; //Create inner text for span
+  cardElement.appendChild(cityNameTag);
+  cardElement.appendChild(aqiTag);
 
-  //Appending our elements to the article tag so they are nested within it
-  cardElement.appendChild(pTag);
-  cardElement.appendChild(dateElement);
-
-  console.log(cardElement); //Console.log to test
-  return cardElement; //A return needed to create a new reminder card
+  return cardElement;
 }
 
+// Invoke the card
+createLocationCard();
+
 //Invoking to test
-createNoteCard({ reminder: "Learn JS", date: " 2024-12-19" });
-createNoteCard({ reminder: "Do laundry", date: " 2024-12-19" });
+// createNoteCard({ reminder: "Learn JS", date: " 2024-12-19" });
+// createNoteCard({ reminder: "Do laundry", date: " 2024-12-19" });
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 3: Create a function that will render our HTML on the browser
+const fetchAQIData = () => {
+  const apiKey = "2f503d7be3929fdf08e1a5932f0b683e";
 
-const renderNoteCards = () => {
-  //Point to the form element on our HTML file
-  const myReminderEl = document.querySelector(".reminders__list");
+  // Point to the div where the location cards will be displayed
+  const locationsListEl = document.querySelector(".locations__list");
 
-  //Clear all the HTML inside .reminders__list,
-  //so only most recent version of objects array is used to render to screen
-  myReminderEl.innerHTML = "";
+  // Clear existing content
+  locationsListEl.innerHTML = "";
 
-  for (let i = 0; i < dailyReminders.length; i++) {
-    //call createNoteCard with each index of the dailyReminders array by iterating through it
-    //dailyReminders[i] represents each object in your dailyReminders array
-    const card = createNoteCard(dailyReminders[i]);
+  // Iterate over each location in our array
+  locations.forEach((location) => {
+    const { lat, lon } = location;
+    const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-    //append each object from dailyReminders array to insertion point in HTML (i.e. .reminders_list div)
-    myReminderEl.appendChild(card);
-  }
+    axios
+      .get(url)
+      .then((response) => {
+        const aqi = response.data.list[0].main.aqi;
+
+        // Create and append a card for the current location
+        const locationCard = createLocationCard(location, aqi);
+        locationsListEl.appendChild(locationCard);
+      })
+      .catch((error) => {
+        console.error(
+          "Error fetching data for location:",
+          location.city,
+          error
+        );
+      });
+  });
 };
 
-//invoke render function
-renderNoteCards();
-
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// STEP 4: Get our Submit button to work
-
-const formEl = document.querySelector(".notes-form");
-
-// add 'submit' event handler to form element
-formEl.addEventListener("submit", submitHandler);
-
-//our handler function that we are passing in as an argument in our event listener
-function submitHandler(event) {
-  event.preventDefault(); // prevent page from reloading
-
-  // store date from user input in an object (with same properties as original object)
-  let cardData = {
-    reminder: event.target.reminder.value,
-    date: event.target.date.value,
-  };
-
-  // add object from user data to original hard coded reminders array
-  dailyReminders.push(cardData); //will add elements to the end of the array
-
-  //This will add the newest elements to the front of the array
-  // dailyReminders.unshift(cardData);
-
-  // did that work
-  console.log(dailyReminders);
-
-  // call render appointmetns each time a form submission is made
-  renderNoteCards();
-}
+// Invoke function to render the cards
+fetchAQIData();
