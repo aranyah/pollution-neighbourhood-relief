@@ -1,81 +1,109 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 1: Create data that we can work with locally
 const locations = [
-  { city: "Toronto", lat: 43.6534817, lon: -79.3839347 },
-  { city: "Calgary", lat: 50.6631, lon: -112.625 },
-  { city: "Vancouver", lat: 49.2608724, lon: -123.113952 },
+//  { city: "Toronto", lat: 43.6534817, lon: -79.3839347 }
+{ city: "Calgary", lat: 50.6631, lon: -112.625 },
+ // { city: "Vancouver", lat: 49.2608724, lon: -123.113952 },
 ];
 
-// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// STEP 2: Create a function that will create our HTML
+// DOM: ADD TO CSS
 
-// The createNoteCard function will create the following HTML:
-/* 
-   <article class="reminders__note-card">
-        <p class="reminders__reminder">Reminder</p>
-        <span class="reminders__date">Date</span>
-    </article>; 
-*/
+function createForecastCard(aqi) {
+  const forecastCard = document.createElement("div");
+  forecastCard.classList.add("forecast-card");
 
-function createLocationCard(location, aqi) {
-  const cardElement = document.createElement("article");
-  cardElement.classList.add("locations__note-card");
+  const forecastCardContainer = document.createElement("div");
+  forecastCardContainer.classList.add("forecast-card__container");
 
-  const cityNameTag = document.createElement("p");
-  cityNameTag.classList.add("locations__city");
-  cityNameTag.innerText = location.city;
+  const forecastCardDesc = document.createElement("div");
+  forecastCardDesc.classList.add("forecast-card--desc");
 
-  const aqiTag = document.createElement("span");
-  aqiTag.classList.add("locations__aqi");
-  aqiTag.innerText = `AQI: ${aqi}`;
+  const forecastCardValue = document.createElement("div");
+  forecastCardValue.classList.add("forecast-card--value");
+  forecastCardValue.innerText = `${aqi}`;
 
-  cardElement.appendChild(cityNameTag);
-  cardElement.appendChild(aqiTag);
+  forecastCardContainer.appendChild(forecastCardValue);
+  forecastCardContainer.appendChild(forecastCardDesc);
 
-  return cardElement;
+  forecastCard.append(forecastCardContainer);
+
+  console.log(forecastCard);
+  return forecastCard;
 }
 
-// Invoke the card
-createLocationCard();
 
-//Invoking to test
-// createNoteCard({ reminder: "Learn JS", date: " 2024-12-19" });
-// createNoteCard({ reminder: "Do laundry", date: " 2024-12-19" });
+
+  // createCommentBox ({name: "Celine", date: "2024-12-19", comment: "hello!"});
+  // console.log(createCommentBox(0));
+
+
+
+
+
+
+// const card = createForecastCard();
+// todayAQI.append(card);
+
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 3: Create a function that will render our HTML on the browser
 const fetchAQIData = () => {
-  const apiKey = "2f503d7be3929fdf08e1a5932f0b683e";
 
-  // Point to the div where the location cards will be displayed
-  const locationsListEl = document.querySelector(".locations__list");
+  const locationsListEl = document.querySelector(".forecast-cards");
 
   // Clear existing content
   locationsListEl.innerHTML = "";
 
-  // Iterate over each location in our array
-  locations.forEach((location) => {
-    const { lat, lon } = location;
-    const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  // Calgary lag lon 
+  const lat = 50.6631;
+  const lon = -112.625;
+  const apiKey = "2f503d7be3929fdf08e1a5932f0b683e";
 
-    axios
-      .get(url)
-      .then((response) => {
-        const aqi = response.data.list[0].main.aqi;
+  // Construct the URL using the fixed coordinates
+  const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-        // Create and append a card for the current location
-        const locationCard = createLocationCard(location, aqi);
-        locationsListEl.appendChild(locationCard);
-      })
-      .catch((error) => {
-        console.error(
-          "Error fetching data for location:",
-          location.city,
-          error
-        );
-      });
-  });
+  console.log(url);
+  // Make the API call
+  axios
+    .get(url)
+    .then((response) => {
+      const aqi = response.data.list[0].main.aqi;
+
+      // Create card for this location
+      const location = { city: "Calgary" }; 
+      const locationCard = createForecastCard(location, aqi);
+      locationsListEl.appendChild(locationCard);
+    })
+    .catch((error) => {
+      console.error("Error fetching data for location:", error);
+    });
 };
 
 // Invoke function to render the cards
 fetchAQIData();
+// Iterate over each location in our array
+//   locations.forEach((location) => {
+//     const { lat, lon } = location;
+//     const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+//     axios
+//       .get(url)
+//       .then((response) => {
+//         const aqi = response.data.list[0].main.aqi;
+
+//         // Create and append a card for the current location
+//         const locationCard = createLocationCard(location, aqi);
+//         locationsListEl.appendChild(locationCard);
+//       })
+//       .catch((error) => {
+//         console.error(
+//           "Error fetching data for location:",
+//           location.city,
+//           error
+//         );
+//       });
+//   });
+// };
+
+// // Invoke function to render the cards
+// fetchAQIData();
