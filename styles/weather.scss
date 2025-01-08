@@ -1,0 +1,70 @@
+@use "./partials/fonts" as *;
+@use "./partials/variables" as *;
+@use "./partials/mixins" as *;
+
+body {
+    margin: 0;
+}
+h1 {
+    color: $red;
+    text-align: center;
+}
+
+h2 {
+    color: $black;
+    text-align: center;
+}
+
+.header-container {
+    @include mainSectionContainer($beige);
+    padding: 2rem;
+}
+
+.nav-container select {
+    border: 1px solid $grey;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    resize: none;
+    width: 100%;
+}
+
+.air-quality {
+    @include mainSectionContainer($offwhite);
+    padding: 2rem;
+}
+
+.forecast {
+    @include mainSectionContainer($beige);
+    padding: 2rem;
+}
+
+.forecast-card {
+    margin-bottom: 1rem;
+
+    &__container {
+        @include flexContainerRow(flex-start);
+        align-items: center;
+        line-height: 1.5rem;
+    }
+
+    &--title {
+        text-transform: uppercase;
+        padding: 0.5rem 0 1rem;
+        color: $red;
+        letter-spacing: 0.2rem;
+        font-size: 1.25rem;
+    }
+
+    &--value {
+        background-color: $green;
+        border-radius: 0.25rem;
+        padding: 1rem 1.5rem;
+        color: $black;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    &--desc {
+       padding-left: 1rem;
+    }
+}
+

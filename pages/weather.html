@@ -1,44 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="./script.js" defer></script>
-    <title>DOM Review</title>
-  </head>
-  <body>
-    <h1 class="title">My Notes App</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Response Alerts</title>
 
-    <form class="notes-form">
-      <fieldset class="notes-form__fieldset">
-        <legend class="notes-form__legend">Important things to remember</legend>
+    <link rel="stylesheet" href="/styles/weather.css" />
+</head>
 
-        <label for="reminder" class="notes-form__label">Note:</label>
-        <textarea 
-          class="notes-form__textarea" 
-          id="reminder" name="reminder" 
-          placeholder="Write your note here..." 
-          required
-        ></textarea>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Disaster Response Alerts</h1>
 
-        <label for="date" class="notes-form__label">Date:</label>
-        <input 
-          class="notes-form__input" 
-          type="date"
-          name="date"
-          id="date" 
-          required
-        />
+            <nav class="nav-container">
+                <select name="location" id="location">
+                    <option value="toronto">Toronto</option>
+                    <option value="calgary">Calgary</option>
+                    <option value="vancouver">Vancouver</option>
+                </select>
+            </nav>
+        </div>
+    </header>
 
-        <button class="notes-form__button">Submit</button>
-      </fieldset>
-    </form>
+    <main>
 
-    <h2 class="reminders__title">Reminders 📝:</h2>
-    <div class="reminders__list">
-      <!-- Reminders will go here -->
-      </article> 
-    </div>
-  </body>
+        <section class="air-quality">
+            <h2>Today's Air Quality Index</h2>
+
+            <div class="forecast-card">
+                <div class="forecast-card__container">
+                    <div class="forecast-card--value">1</div>
+                    <div class="forecast-card--desc">The air quality is good.</div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <section class="forecast">
+            <h2>Air Quality Forecast</h2>
+
+
+            <div class="forecast-card">
+                <div class="forecast-card--title">WEDNESDAY</div>
+
+                <div class="forecast-card__container">
+                    <div class="forecast-card--value">1</div>
+                    <div class="forecast-card--desc">The air quality is good.</div>
+                </div>
+            </div>
+
+            <div class="forecast-card">
+                <div class="forecast-card--title">THURSDAY</div>
+
+                <div class="forecast-card__container">
+                    <div class="forecast-card--value">1</div>
+                    <div class="forecast-card--desc">The air quality is good.</div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+    </footer>
+</body>
+
 </html>

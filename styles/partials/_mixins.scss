@@ -1,0 +1,20 @@
+@use "./variables" as *;
+
+
+@mixin flexContainerColumn($column-content) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $column-content;
+}
+
+@mixin flexContainerRow($row-content) {
+    display: flex;
+    flex-direction: row;
+    justify-content: $row-content;
+}
+
+@mixin mainSectionContainer($color) {
+    @include flexContainerColumn(center);
+    align-items: center;
+    background: $color;
+}

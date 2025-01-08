@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "Manrope";
+  src: url(".././assets/font/Manrope-Bold.ttf") format("ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url(".././assets/font/Manrope-Medium.ttf") format("ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url(".././assets/font/Manrope-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  color: #A93F29;
+  text-align: center;
+}
+
+h2 {
+  color: #1F1F1F;
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #F0EEE6;
+  padding: 2rem;
+}
+
+.nav-container select {
+  border: 1px solid #938a83;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  resize: none;
+  width: 100%;
+}
+
+.air-quality {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #F8F6F0;
+  padding: 2rem;
+}
+
+.forecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #F0EEE6;
+  padding: 2rem;
+}
+
+.forecast-card {
+  margin-bottom: 1rem;
+}
+.forecast-card__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 1.5rem;
+}
+.forecast-card--title {
+  text-transform: uppercase;
+  padding: 0.5rem 0 1rem;
+  color: #A93F29;
+  letter-spacing: 0.2rem;
+  font-size: 1.25rem;
+}
+.forecast-card--value {
+  background-color: #B3BFB9;
+  border-radius: 0.25rem;
+  padding: 1rem 1.5rem;
+  color: #1F1F1F;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.forecast-card--desc {
+  padding-left: 1rem;
+}/*# sourceMappingURL=weather.css.map */
