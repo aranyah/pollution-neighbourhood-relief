@@ -100,3 +100,123 @@ function submitHandler(event) {
   // Call render function each time a form submission is made
   renderReliefRequests();
 }
+
+// Coordinates for Queen Mary Park, Edmonton
+const latitude = 53.5647;
+const longitude = -113.5298;
+
+// OpenWeatherMap API key (replace this with your actual API key)
+const apiKey = '95eacae1050c4e55747358ffee9ced74';
+
+// Function to fetch weather data
+async function fetchWeatherData() {
+  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${apiKey}&units=metric`;
+
+  try {
+    // Fetch weather data from OpenWeatherMap API
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Display current weather (e.g., temperature, wind speed)
+    displayCurrentWeather(data.current);
+
+    // Display hourly weather forecast for the next few hours
+    displayHourlyForecast(data.hourly);
+
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    displayErrorMessage("Unable to fetch weather data.");
+  }
+}
+
+// Function to display current weather data on the page
+function displayCurrentWeather(currentData) {
+  const currentWeatherElement = document.getElementById("current-weather");
+  
+  // Clear any previous content
+  currentWeatherElement.innerText = '';
+
+  // Create and append new elements for current weather
+  const tempElement = document.createElement("p");
+  tempElement.innerText = `Temperature: ${currentData.temp}°C`;
+  currentWeatherElement.appendChild(tempElement);
+
+  const windElement = document.createElement("p");
+  windElement.innerText = `Wind Speed: ${currentData.wind_speed} m/s`;
+  currentWeatherElement.appendChild(windElement);
+
+  const humidityElement = document.createElement("p");
+  humidityElement.innerText = `Humidity: ${currentData.humidity}%`;
+  currentWeatherElement.appendChild(humidityElement);
+}
+
+// Function to display hourly weather forecast for the next few hours
+function displayHourlyForecast(hourlyData) {
+  const forecastElement = document.getElementById("weather-forecast");
+
+  // Clear any previous forecast data
+  forecastElement.innerText = '';
+
+  // Loop through the first 6 hours of the forecast data
+  for (let i = 0; i < 6; i++) {
+    const hour = hourlyData[i];
+    
+    // Convert UNIX timestamp to hours and minutes
+    const date = new Date(hour.dt * 1000); // Convert to milliseconds
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    
+    // Format the hours and minutes to be 2 digits (e.g., 9 -> 09, 5 -> 05)
+    const time = `${padTime(hours)}:${padTime(minutes)}`;
+    
+    // Get the temperature, wind speed, and humidity for this hour
+    const temperature = hour.temp;
+    const windSpeed = hour.wind_speed;
+    const humidity = hour.humidity;
+
+    // Create a new div element to hold the forecast data for this hour
+    const forecastCard = document.createElement("div");
+    forecastCard.classList.add("forecast-card");
+
+    // Create and append the time element
+    const timeElement = document.createElement("p");
+    timeElement.classList.add("forecast-time");
+    timeElement.innerText = `Time: ${time}`;
+    forecastCard.appendChild(timeElement);
+
+    // Create and append the temperature element
+    const tempElement = document.createElement("p");
+    tempElement.classList.add("forecast-temp");
+    tempElement.innerText = `Temp: ${temperature}°C`;
+    forecastCard.appendChild(tempElement);
+
+    // Create and append the wind speed element
+    const windElement = document.createElement("p");
+    windElement.classList.add("forecast-wind");
+    windElement.innerText = `Wind: ${windSpeed} m/s`;
+    forecastCard.appendChild(windElement);
+
+    // Create and append the humidity element
+    const humidityElement = document.createElement("p");
+    humidityElement.classList.add("forecast-humidity");
+    humidityElement.innerText = `Humidity: ${humidity}%`;
+    forecastCard.appendChild(humidityElement);
+
+    // Append the forecast card to the forecast section
+    forecastElement.appendChild(forecastCard);
+  }
+}
+
+// Helper function to pad time (make single digits into two digits)
+function padTime(time) {
+  return time < 10 ? `0${time}` : time;
+}
+
+// Function to display an error message in case of failure
+function displayErrorMessage(message) {
+  const errorElement = document.getElementById("error-message");
+  errorElement.innerText = message;
+}
+
+// Call the fetchWeatherData function when the page loads
+fetchWeatherData();
