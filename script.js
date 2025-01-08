@@ -71,7 +71,7 @@ const fetchAQIData = () => {
 
       // Create card for this location
       const location = { city: "Calgary" }; 
-      const locationCard = createForecastCard(location, aqi);
+      const locationCard = createForecastCard(aqi);
       locationsListEl.appendChild(locationCard);
     })
     .catch((error) => {
