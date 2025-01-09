@@ -6,8 +6,8 @@ const locations = [
  // { city: "Vancouver", lat: 49.2608724, lon: -123.113952 },
 ];
 
-// DOM: ADD TO CSS
 
+// DOM: ADD TO CSS
 function createForecastCard(aqi) {
   const forecastCard = document.createElement("div");
   forecastCard.classList.add("forecast-card");
@@ -30,20 +30,6 @@ function createForecastCard(aqi) {
   console.log(forecastCard);
   return forecastCard;
 }
-
-
-
-  // createCommentBox ({name: "Celine", date: "2024-12-19", comment: "hello!"});
-  // console.log(createCommentBox(0));
-
-
-
-
-
-
-// const card = createForecastCard();
-// todayAQI.append(card);
-
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // STEP 3: Create a function that will render our HTML on the browser
@@ -73,14 +59,48 @@ const fetchAQIData = () => {
       const location = { city: "Calgary" }; 
       const locationCard = createForecastCard(aqi);
       locationsListEl.appendChild(locationCard);
+
+      let aqiText = "";
+
+      function getQualitativeAQI() {
+        if (aqi <= 1) {
+          aqiText = "good";
+        } else if (aqi <= 2) {
+          aqiText = "fair";
+        } else if (aqi <= 3) { 
+          aqiText = "moderate";
+        } else if (aqi <= 4) {
+           aqiText = "poor";
+        } else if (aqi <= 5) {
+          aqiText = "very poor";
+        } else {
+          aqiText = "n/a";
+        }
+      }
+
+    getQualitativeAQI();
+      const aqiDescription = document.querySelector(".forecast-card--desc");
+      aqiDescription.innerText = "The air quality is " + aqiText + ".";
+
+
     })
     .catch((error) => {
       console.error("Error fetching data for location:", error);
     });
 };
 
-// Invoke function to render the cards
 fetchAQIData();
+
+
+
+
+// qualitativeTag.innerText = `The air quality is (${aqiQualitative})`;
+
+
+// const forecastCardDesc = document.createElement("div");
+// forecastCardDesc.classList.add("forecast-card--desc");
+
+
 // Iterate over each location in our array
 //   locations.forEach((location) => {
 //     const { lat, lon } = location;

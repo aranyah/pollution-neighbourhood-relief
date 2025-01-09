@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/scripts/supplies.js" defer></script>
+    <title>Supplies Bulletin Board</title>
+    <link rel="stylesheet" href="/styles/supplies.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">Air Pollution Relief</div>
+      <div class="nav-buttons">
+        <a href="weather.html">
+          <button>Forecast</button>
+        </a>
+        <a href="supplies.html">
+          <button>Supplies</button>
+        </a>
+      </div>
+    </nav>
+
+    <div class="header-supplies">
+    <h1>Supplies Bulletin Board</h1>
+  </div>
+ 
+
+    <form class="relief-form">
+      <fieldset class="relief-form__fieldset">
+        <legend class="relief-form__legend">What supplies can you donate?</legend>
+
+   
+        <label for="name" class="relief-form__label">Name:</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="Full Name" 
+          required
+        />
+
+        
+        <label for="phone" class="relief-form__label">Phone Number:</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          placeholder="Phone Number" 
+          required
+        />
+
+        
+        <label for="location" class="relief-form__label">Meeting Location for Drop-off:</label>
+        <input 
+          type="text" 
+          id="location" 
+          name="location" 
+          placeholder="Indicate here if you can drop off at location specified" 
+          required
+        />
+
+        
+          <label for="canDropOff" class="relief-form__label">Can you drop off resources to home?</label>
+         
+        <div class="form-flexbox">
+          <input 
+          type="checkbox" 
+          id="canDropOff" 
+          name="canDropOff"
+        />
+          <label for="canDropOff">Yes</label>
+      </div>
+
+        <button type="submit" class="relief-form__button">Submit</button>
+      </fieldset>
+    </form>
+
+    <h2 class="relief__title">Disaster Relief Requests 📦:</h2>
+    <div class="relief__requests-list">
+      <!-- Published cards for disaster relief requests will go here -->
+    </div>
+
+
+
+
+
+  </body>
+</html>

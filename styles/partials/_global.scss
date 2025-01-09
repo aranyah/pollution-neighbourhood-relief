@@ -1,0 +1,75 @@
+@use "fonts" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+h1 {
+    color: $red;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+
+h2 {
+    color: $black;
+    text-align: center;
+    margin-bottom: 1rem;
+
+}
+
+input {
+    border: 1px solid $grey;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: $green;
+    border-radius: 0.25rem;
+    width: 100%;
+    font-size: 1.25rem;
+  }
+
+  .navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .navbar .nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .navbar .nav-buttons a {
+    text-decoration: none;
+  }
+
+  .navbar .nav-buttons button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: $red;
+    color: #ffffff;
+    transition: background-color 0.3s;
+  }
+
+  .navbar .nav-buttons button:hover {
+    background-color: $grey;
+  }

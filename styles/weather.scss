@@ -1,23 +1,13 @@
-@use "./partials/fonts" as *;
-@use "./partials/variables" as *;
-@use "./partials/mixins" as *;
+@use "partials/fonts" as *;
+@use "partials/variables" as *;
+@use "partials/mixins" as *;
+@use "partials/global" as *;
 
-body {
-    margin: 0;
-}
-h1 {
-    color: $red;
-    text-align: center;
-}
 
-h2 {
-    color: $black;
-    text-align: center;
-}
 
 .header-container {
     @include mainSectionContainer($beige);
-    padding: 2rem;
+    padding: 3rem;
 }
 
 .nav-container select {
@@ -39,8 +29,7 @@ h2 {
 }
 
 .forecast-card {
-    margin-bottom: 1rem;
-
+    padding: 2rem;
     &__container {
         @include flexContainerRow(flex-start);
         align-items: center;

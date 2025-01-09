@@ -9,14 +9,25 @@
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="logo">Air Pollution Relief</div>
+        <div class="nav-buttons">
+          <a href="weather.html">
+            <button>Forecast</button>
+          </a>
+          <a href="supplies.html">
+            <button>Supplies</button>
+          </a>
+        </div>
+    </nav>
     <header>
         <div class="header-container">
             <h1>Disaster Response Alerts</h1>
 
             <nav class="nav-container">
                 <select name="location" id="location">
-                    <option value="toronto">Toronto</option>
                     <option value="calgary">Calgary</option>
+                    <option value="toronto">Toronto</option>
                     <option value="vancouver">Vancouver</option>
                 </select>
             </nav>
@@ -29,15 +40,8 @@
             <h2>Today's Air Quality Index</h2>
 
             <div class="forecast-cards">
-            <div class="forecast-card">
-                <div class="forecast-card__container">
-                    <div class="forecast-card--value">1</div>
-                    <div class="forecast-card--desc">The air quality is good.</div>
-                </div>
+
             </div>
-        </div>
-
-
         </section>
 
 
@@ -62,11 +66,7 @@
                     <div class="forecast-card--desc">The air quality is good.</div>
                 </div>
             </div>
-
-
         </section>
-
-
     </main>
 
 
@@ -74,7 +74,7 @@
 
     </footer>
 
-    <script src="/script.js"></script>
+    <script src="/scripts/script.js"></script>
 
 </body>
 
